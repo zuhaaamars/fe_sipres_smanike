@@ -1,0 +1,114 @@
+.riwayat-mapel-container {
+  padding: 30px 40px;
+  background-color: #f8fafc;
+}
+
+/* Statistik Row */
+.mapel-stats-grid {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.mapel-stat-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.mapel-stat-box.total { border-left: 4px solid #1e293b; color: #1e293b; }
+.mapel-stat-box.hadir { border-left: 4px solid #0d9488; color: #0d9488; }
+.mapel-stat-box.alpa { border-left: 4px solid #e11d48; color: #e11d48; }
+
+/* Table Section */
+.mapel-table-card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.mapel-table-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.mapel-search {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  padding: 8px 15px;
+  border-radius: 50px;
+  width: 350px;
+}
+
+.mapel-search input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  margin-left: 10px;
+  outline: none;
+}
+
+.mapel-history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mapel-history-table th {
+  text-align: left;
+  padding: 15px;
+  background: #f8fafc;
+  color: #64748b;
+  font-weight: 700;
+}
+
+.mapel-history-table td {
+  padding: 15px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+}
+
+.font-bold-mapel {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.date-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #475569;
+}
+
+.time-tag {
+  background: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: monospace;
+}
+
+/* Status Badges */
+.mapel-status-badge {
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.status-mapel-hadir { background: #dcfce7; color: #15803d; }
+.status-mapel-alpa { background: #fee2e2; color: #b91c1c; }
+.status-mapel-izin { background: #fef3c7; color: #b45309; }
+
+@media (max-width: 768px) {
+  .mapel-stats-grid { flex-direction: column; }
+  .mapel-table-header { flex-direction: column; gap: 10px; }
+  .mapel-search { width: 100%; }
+}

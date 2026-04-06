@@ -1,0 +1,153 @@
+.riwayat-surat-container {
+  padding: 30px 40px;
+  background-color: #f1f5f9; /* Sama dengan background dashboard */
+  min-height: 100vh;
+}
+
+.page-header h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 30px;
+}
+
+/* Status Summary Cards */
+.status-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.summary-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.card-icon {
+  padding: 12px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.card-info h3 { font-size: 1.8rem; font-weight: 800; margin: 0; }
+.card-info p { margin: 0; color: #64748b; font-size: 0.9rem; }
+
+/* Warna spesifik kartu status */
+.card-total .card-icon { background-color: #1e293b; }
+.card-total h3 { color: #1e293b; }
+
+.card-pending .card-icon { background-color: #f59e0b; }
+.card-pending h3 { color: #f59e0b; }
+
+.card-approved .card-icon { background-color: #0d9488; } /* Hijau Smanike */
+.card-approved h3 { color: #0d9488; }
+
+.card-rejected .card-icon { background-color: #e11d48; }
+.card-rejected h3 { color: #e11d48; }
+
+/* Table Data Section */
+.table-data-section {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.table-header-tools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.table-title { font-size: 1.1rem; font-weight: 700; color: #1e293b; margin: 0; }
+
+.search-bar {
+  position: relative;
+  width: 300px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 15px 10px 40px;
+  border-radius: 50px; /* Bentuk kapsul sesuai mockup user profil */
+  border: 1px solid #cbd5e1;
+  background-color: #f8fafc;
+}
+
+.search-icon { position: absolute; left: 15px; top: 12px; color: #94a3b8; }
+
+/* Data Table Styling */
+.data-table-wrapper { overflow-x: auto; }
+
+.riwayat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.riwayat-table thead th {
+  text-align: left;
+  padding: 15px;
+  background-color: #f1f5f9;
+  color: #475569;
+  font-weight: 700;
+  border-bottom: 2px solid #cbd5e1;
+}
+
+.riwayat-table tbody td {
+  padding: 15px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+/* Styling Status Badges */
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 50px; /* Bentuk kapsul */
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+}
+
+.badge-success { background-color: rgba(13, 148, 136, 0.1); color: #0d9488; }
+.badge-warning { background-color: rgba(245, 158, 11, 0.1); color: #b45309; }
+.badge-danger { background-color: rgba(225, 29, 72, 0.1); color: #be123c; }
+
+/* Table Action Buttons */
+.action-buttons-cell { display: flex; gap: 8px; }
+
+.btn-table-action {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: 0.2s;
+}
+
+.btn-detail { background-color: #e2e8f0; color: #475569; }
+.btn-detail:hover { background-color: #cbd5e1; }
+
+.btn-download { background-color: #38bdf8; color: white; } /* Biru Smanike */
+.btn-download:hover { background-color: #0ea5e9; }
+
+/* Responsive Grid */
+@media (max-width: 1024px) {
+  .status-summary-grid { grid-template-columns: repeat(2, 1fr); }
+  .table-header-tools { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .search-bar { width: 100%; }
+}

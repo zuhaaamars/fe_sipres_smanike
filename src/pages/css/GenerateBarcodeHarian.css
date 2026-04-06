@@ -1,0 +1,190 @@
+.gb-container {
+  padding: 30px;
+  width: 100%;
+  max-width: 900px; /* Dibatasi agar QR Code tetap di tengah dan enak dilihat */
+  margin: 0 auto;
+}
+
+.gb-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.gb-header-text h1 {
+  font-size: 1.8rem;
+  color: #0f3d3a;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.gb-header-text p {
+  color: #64748b;
+}
+
+.gb-status-badge {
+  background: white;
+  padding: 10px 20px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  font-weight: 700;
+  color: #0f3d3a;
+  border: 1px solid #e2e8f0;
+}
+
+.gb-main-card {
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+  text-align: center;
+  border: 1px solid #f1f5f9;
+}
+
+.gb-info-section {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.gb-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gb-info-item .label {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.gb-info-item .value {
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.status-pill {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.status-pill.masuk { background: #dcfce7; color: #15803d; }
+.status-pill.pulang { background: #eff6ff; color: #1d4ed8; }
+
+.gb-qr-wrapper {
+  margin: 40px 0;
+}
+
+.gb-qr-box {
+  background: #f8fafc;
+  padding: 30px;
+  display: inline-block;
+  border-radius: 20px;
+  border: 2px solid #e2e8f0;
+  position: relative;
+  transition: 0.3s;
+}
+
+.gb-qr-box:hover {
+  border-color: #1a746b;
+  transform: scale(1.02);
+}
+
+.gb-qr-overlay {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0f3d3a;
+  color: white;
+  padding: 4px 15px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.gb-qr-instruction {
+  margin-top: 25px;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.gb-controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.gb-btn {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+  border: none;
+}
+
+.gb-btn.primary { background: #1a746b; color: white; }
+.gb-btn.secondary { background: #f1f5f9; color: #475569; }
+
+.gb-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+.gb-stats-grid {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.gb-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 15px 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+  color: #64748b;
+}
+
+.stat-text strong {
+  display: block;
+  color: #0f172a;
+  font-size: 1.1rem;
+}
+
+.gb-btn-download {
+  background: none;
+  border: 2px solid #e2e8f0;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: #64748b;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .gb-controls { flex-direction: column; }
+  .gb-info-section { gap: 15px; }
+  .gb-stats-grid { flex-direction: column; gap: 15px; }
+}

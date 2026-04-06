@@ -1,0 +1,183 @@
+/* Container Utama */
+.dashboard-content-inner {
+  padding: 20px 40px;
+  background-color: #f1f5f9; /* Warna abu-abu terang sesuai mockup [cite: 2, 4] */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Header Profil */
+.content-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.user-profile-dropdown {
+  background: white;
+  padding: 6px 15px;
+  border-radius: 50px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.9rem;
+}
+
+.user-avatar {
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 50%;
+  border: 1px solid #cbd5e1;
+}
+
+.welcome-text {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 30px;
+  color: #0f172a; /* [cite: 2] */
+}
+
+/* Grid System: 3 Kolom Penuh [cite: 2] */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+/* Dashboard Card */
+.dashboard-card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Memastikan tinggi kartu seragam dalam satu baris */
+}
+
+.card-header-box h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.card-subtitle {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin: 5px 0 20px 0;
+}
+
+.card-body {
+  flex: 1; /* Mengisi ruang agar tombol aksi terdorong ke bawah */
+}
+
+/* Row Status & Badge Mapel [cite: 2, 4] */
+.status-row, .mapel-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Warna Status Sesuai Mockup [cite: 2, 4] */
+.present { background-color: #dcfce7; color: #166534; }
+.present .dot { background-color: #22c55e; }
+
+.not-yet { background-color: #fef3c7; color: #854d0e; }
+.not-yet .dot { background-color: #f59e0b; }
+
+/* Status Alur Surat [cite: 4] */
+.flow-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.flow-status.waiting { color: #f59e0b; }
+.flow-status.validated { color: #10b981; }
+
+/* Tombol Aksi */
+.btn-action {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  color: white;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.btn-action.blue { background-color: #38bdf8; } /* [cite: 2] */
+.btn-action.dark-teal { background-color: #0f3d3a; } /* [cite: 4] */
+
+/* Pengumuman Lebar Penuh [cite: 2, 4] */
+.card-full {
+  grid-column: span 3;
+}
+
+.announcement-placeholder {
+  margin-top: 15px;
+  border: 2px dashed #e2e8f0;
+  border-radius: 15px;
+  padding: 40px;
+  text-align: center;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+/* Footer Section */
+.dashboard-footer-content {
+  margin-top: auto; /* Mendorong footer ke bawah jika konten sedikit */
+  padding: 40px 0 20px;
+  text-align: center;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.social-icons img {
+  width: 22px;
+  height: 22px;
+  opacity: 0.6;
+}
+
+/* Responsivitas Layar [cite: 2] */
+@media (max-width: 1024px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .card-full { grid-column: span 1; }
+  .dashboard-content-inner { padding: 20px; }
+}

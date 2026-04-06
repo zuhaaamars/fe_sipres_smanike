@@ -1,0 +1,84 @@
+/* Tambahan khusus untuk Form Mapel */
+.gb-setup-form {
+  padding: 20px 0;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.gb-icon-circle {
+  width: 80px;
+  height: 80px;
+  background: #f0fdfa;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.gb-setup-form h2 {
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.gb-form-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.gb-form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.gb-form-group select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  outline: none;
+  font-weight: 500;
+}
+
+.gb-btn-start {
+  width: 100%;
+  background: #1a746b;
+  color: white;
+  border: none;
+  padding: 15px;
+  border-radius: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.gb-live-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ef4444;
+}
+
+.gb-live-indicator .dot {
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; }
+  100% { opacity: 1; }
+}

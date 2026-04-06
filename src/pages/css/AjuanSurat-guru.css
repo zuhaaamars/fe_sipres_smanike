@@ -1,0 +1,235 @@
+/* Container Utama - Full Width */
+.as-guru-container {
+  padding: 30px;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background-color: #f8fafc; /* Abu-abu sangat muda agar card putih terlihat jelas */
+}
+
+/* Header Section */
+.as-guru-header {
+  margin-bottom: 30px;
+}
+
+.as-header-info h1 {
+  font-size: 1.8rem;
+  color: #0f3d3a; /* Hijau SMANIKE */
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+.as-header-info p {
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+/* Filter & Search Bar */
+.as-filter-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  gap: 15px;
+}
+
+.as-search-box {
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 12px 18px;
+  border-radius: 12px;
+  flex: 1;
+  max-width: 450px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  gap: 12px;
+  border: 1px solid #f1f5f9;
+}
+
+.as-search-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 0.9rem;
+  color: #1e293b;
+}
+
+.btn-filter {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 10px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: 0.2s;
+}
+
+.btn-filter:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+/* Table Section */
+.as-table-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  border: 1px solid #f1f5f9;
+}
+
+.as-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.as-table th {
+  background: #f8fafc;
+  padding: 20px;
+  text-align: left;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #64748b;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.as-table td {
+  padding: 20px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.as-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Siswa & Info Kolom */
+.as-student-info strong {
+  display: block;
+  color: #0f172a;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.as-student-info span {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.as-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #334155;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Status Badges */
+.as-status {
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.as-status.pending { 
+  background-color: #fff7ed; 
+  color: #ea580c; 
+}
+.as-status.disetujui { 
+  background-color: #dcfce7; 
+  color: #15803d; 
+}
+.as-status.ditolak { 
+  background-color: #fee2e2; 
+  color: #dc2626; 
+}
+
+/* Action Buttons */
+.as-action-group {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.as-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: none;
+  display: flex;
+  align-items: center;      
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.as-btn.view { 
+  background-color: #f1f5f9; 
+  color: #475569; 
+}
+.as-btn.approve { 
+  background-color: #dcfce7; 
+  color: #166534; 
+}
+.as-btn.reject { 
+  background-color: #fee2e2; 
+  color: #dc2626; 
+}
+
+.as-btn:hover { 
+  transform: translateY(-2px); 
+  filter: brightness(0.95);
+}
+
+/* --- RESPONSIVE DESIGN --- */
+
+@media (max-width: 1024px) {
+  .as-table-card {
+    overflow-x: auto; /* Table scrollable di tablet */
+  }
+}
+
+@media (max-width: 768px) {
+  .as-guru-container {
+    padding: 20px;
+  }
+
+  .as-filter-bar {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .as-search-box {
+    max-width: 100%;
+  }
+
+  .btn-filter {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .as-header-info h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Untuk HP Sangat Kecil */
+@media (max-width: 480px) {
+  .as-table th, .as-table td {
+    padding: 15px 12px;
+  }
+  
+  .as-action-group {
+    flex-direction: column; /* Tombol aksi tumpuk vertikal jika layar terlalu sempit */
+  }
+}

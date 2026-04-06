@@ -1,0 +1,294 @@
+/* 1. Global Variables & Base */
+:root {
+  --primary-teal: #1a746b;
+  --bg-light: #f8fafc;
+  --text-dark: #1e293b;
+  --text-gray: #64748b;
+  --white: #ffffff;
+  --border-color: #e2e8f0;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-md: 0 10px 30px rgba(0,0,0,0.02);
+}
+
+.rh-container {
+  padding: 24px;
+  background: var(--bg-light);
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  max-width: 1400px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* 2. Header Section */
+.rh-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 20px;
+  flex-wrap: wrap; /* Untuk responsive */
+}
+
+.rh-header-info h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.rh-header-info p {
+  color: var(--text-gray);
+  margin-top: 4px;
+  font-size: 0.95rem;
+}
+
+.rh-header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.rh-btn {
+  padding: 10px 18px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.rh-btn.primary { background: var(--primary-teal); color: white; }
+.rh-btn.primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.rh-btn.secondary { background: white; color: var(--text-gray); border-color: var(--border-color); }
+.rh-btn.secondary:hover { background: #f1f5f9; }
+
+/* 3. Stats Grid */
+.rh-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.rh-stat-card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #f1f5f9;
+}
+
+.rh-stat-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.total .rh-stat-icon { background: #eff6ff; color: #3b82f6; }
+.hadir .rh-stat-icon { background: #f0fdf4; color: #22c55e; }
+.pending .rh-stat-icon { background: #fff7ed; color: #f59e0b; } /* Gunakan 'pending' untuk keselarasan JS */
+.alpa .rh-stat-icon { background: #fef2f2; color: #ef4444; }
+
+.rh-stat-info span { font-size: 0.8rem; color: var(--text-gray); font-weight: 600; }
+.rh-stat-info h3 { margin: 0; font-size: 1.4rem; font-weight: 800; color: var(--text-dark); }
+
+/* 4. Filter & Search */
+.rh-filter-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+
+.rh-search-box {
+  flex: 1;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 12px;
+  gap: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.rh-search-box input { border: none; outline: none; width: 100%; height: 45px; font-size: 0.9rem; }
+
+.rh-filter-options { display: flex; gap: 10px; }
+
+.rh-select {
+  padding: 0 15px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: white;
+  font-weight: 600;
+  color: var(--text-gray);
+  outline: none;
+  cursor: pointer;
+}
+
+/* 5. Table Card */
+.rh-table-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid #f1f5f9;
+  overflow: hidden;
+}
+
+.rh-table-wrapper {
+  overflow-x: auto; /* Penting untuk mobile */
+  width: 100%;
+}
+
+.rh-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1000px; /* Menjaga konten tidak berdesakan */
+}
+
+.rh-table th {
+  background: #f8fafc;
+  padding: 18px 20px;
+  text-align: left;
+  font-size: 0.75rem;
+  color: var(--text-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+.rh-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+/* Student & Photo Cell */
+.rh-student-cell { display: flex; align-items: center; gap: 14px; }
+.rh-student-photo { width: 48px; height: 48px; border-radius: 10px; object-fit: cover; border: 1px solid #e2e8f0; }
+.rh-no-photo { width: 48px; height: 48px; border-radius: 10px; background: #fee2e2; color: #ef4444; display: flex; align-items: center; justify-content: center; }
+
+.rh-student-name { display: block; font-weight: 700; color: var(--text-dark); font-size: 0.9rem; }
+.rh-student-nis { display: block; font-weight: 700; color: #3b82f6; font-size: 11px; }
+.rh-student-kelas { font-size: 11px; color: var(--text-gray); }
+
+/* Time & Geo Labels */
+.rh-time { 
+  display: block; 
+  font-weight: 700; 
+  padding: 6px 10px; 
+  border-radius: 6px; 
+  font-size: 13px;
+  width: fit-content;
+}
+.rh-time.masuk { background: #f0fdf4; color: #166534; }
+.rh-time.pulang { background: #fef2f2; color: #991b1b; }
+
+.rh-geo-info { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-gray); font-weight: 500; }
+
+/* Status & Validation */
+.rh-badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.rh-badge.hadir { background: #dcfce7; color: #15803d; }
+.rh-badge.terlambat { background: #fef9c3; color: #a16207; }
+.rh-badge.alpa { background: #fee2e2; color: #b91c1c; }
+
+.rh-wa-pill { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 8px; width: fit-content; }
+.rh-wa-pill.terkirim { background: #f0f9ff; color: #0369a1; }
+.rh-wa-pill.pending { background: #f8fafc; color: var(--text-gray); }
+
+.rh-btn-vld {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 14px; border-radius: 8px;
+  border: 1px solid #3b82f6; color: #3b82f6;
+  background: transparent; font-size: 12px;
+  font-weight: 700; cursor: pointer; transition: 0.3s;
+}
+.rh-btn-vld.active { background: #3b82f6; color: white; border-color: #3b82f6; }
+
+/* Penyesuaian agar Full Screen */
+.rh-full-wrapper {
+  width: 100%;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.rh-container {
+  padding: 24px;
+  width: 100%;
+  max-width: 100%; /* Menghilangkan batasan lebar */
+  box-sizing: border-box;
+}
+
+/* Kolom NIS Terpisah */
+.rh-col-nis {
+  width: 100px;
+}
+
+.rh-nis-badge {
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  border: 1px solid #bae6fd;
+}
+
+/* Memastikan Tabel Mengisi Ruang */
+.rh-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1200px; /* Agar tetap rapi saat di-scroll horizontal */
+}
+
+/* Styling Baris agar lebih longgar di layar lebar */
+.rh-table td {
+  padding: 20px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+/* Penyesuaian untuk User Tkt 2 (Guru Piket) */
+.rh-student-name {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.rh-time {
+  font-size: 14px;
+  min-width: 60px;
+  text-align: center;
+}
+
+/* 6. Responsive Queries */
+@media (max-width: 1100px) {
+  .rh-stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .rh-container { padding: 16px; }
+  .rh-header { flex-direction: column; align-items: flex-start; }
+  .rh-header-actions { width: 100%; justify-content: space-between; }
+  .rh-btn { flex: 1; justify-content: center; }
+  
+  .rh-filter-section { flex-direction: column; align-items: stretch; }
+  .rh-search-box { width: 100%; }
+}
+
+@media (max-width: 540px) {
+  .rh-stats-grid { grid-template-columns: 1fr; }
+  .rh-header-info h1 { font-size: 1.3rem; }
+  .rh-stat-card { padding: 15px; }
+}

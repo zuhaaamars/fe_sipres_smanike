@@ -1,0 +1,359 @@
+/* 1. Reset & Root Variables */
+:root {
+  --primary-teal: #1a746b;
+  --primary-hover: #145d56;
+  --bg-body: #f8fafc;
+  --white: #ffffff;
+  --text-dark: #0f172a;
+  --text-gray: #64748b;
+  --border-color: #e2e8f0;
+  --success: #16a34a;
+  --info: #0284c7;
+  --warning: #dc2626;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.02);
+}
+
+.pm-siswa-container {
+  padding: 30px;
+  background-color: var(--bg-body);
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+/* 2. Header Section */
+.pm-siswa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.pm-header-left h1 {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.pm-header-left p {
+  font-size: 14px;
+  color: var(--text-gray);
+  margin-top: 5px;
+}
+
+.pm-date-pill {
+  background: var(--white);
+  padding: 10px 22px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-dark);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+/* 3. Main Content Layout */
+.pm-siswa-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 30px;
+  align-items: start;
+}
+
+/* 4. Scan Card (Kamera) */
+.pm-main-card {
+  background: var(--white);
+  border-radius: 24px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid #f1f5f9;
+}
+
+.pm-clock-wrapper {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.pm-live-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-gray);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.pm-big-clock {
+  font-size: 72px;
+  font-weight: 900;
+  color: var(--text-dark);
+  margin: 10px 0 0 0;
+  font-variant-numeric: tabular-nums; /* Mencegah angka goyang */
+}
+
+.pm-scan-area {
+  width: 100%;
+  max-width: 450px;
+  aspect-ratio: 1 / 1;
+  background-color: #f1f5f9;
+  border: 3px dashed #cbd5e1;
+  border-radius: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  transition: 0.3s;
+}
+
+.pm-camera-mock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  color: #94a3b8;
+}
+
+.pm-camera-mock p {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.pm-btn-primary {
+  background-color: var(--primary-teal);
+  color: var(--white);
+  border: none;
+  padding: 18px 40px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 450px;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(26, 116, 107, 0.2);
+}
+
+.pm-btn-primary:hover {
+  transform: translateY(-3px);
+  background-color: var(--primary-hover);
+  box-shadow: 0 8px 20px rgba(26, 116, 107, 0.3);
+}
+
+/* 5. Right Sidebar Cards */
+.pm-side-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pm-card {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+.pm-card-header h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Timeline / Jadwal */
+.pm-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.pm-timeline-item {
+  display: flex;
+  gap: 18px;
+  position: relative;
+  padding-bottom: 25px;
+}
+
+/* Garis penghubung timeline */
+.pm-timeline-item::after {
+  content: '';
+  position: absolute;
+  left: 17px;
+  top: 36px;
+  width: 2px;
+  height: calc(100% - 36px);
+  background-color: var(--border-color);
+}
+
+.pm-timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.pm-timeline-item:last-child::after {
+  display: none;
+}
+
+.pm-t-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+/* States for Timeline */
+.completed .pm-t-icon { background: #dcfce7; color: var(--success); }
+.active .pm-t-icon { background: #e0f2fe; color: var(--info); }
+.future .pm-t-icon { background: #f1f5f9; color: #94a3b8; }
+
+.pm-t-content { flex: 1; }
+.pm-t-time { font-size: 11px; font-weight: 800; color: var(--text-gray); }
+.pm-t-title { font-size: 15px; font-weight: 700; color: var(--text-dark); margin: 2px 0; }
+.pm-t-status { font-size: 12px; font-weight: 600; }
+
+.completed .pm-t-status { color: var(--success); }
+.active .pm-t-status { color: var(--info); }
+
+/* Pulse Animation for Active Class */
+.pulse {
+  animation: pulse-blue 2s infinite;
+}
+
+@keyframes pulse-blue {
+  0% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(2, 132, 199, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(2, 132, 199, 0); }
+}
+
+/* Riwayat List */
+.pm-history-simple {
+  display: flex;
+  flex-direction: column;
+}
+
+.pm-hist-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.pm-hist-row:last-child { border: none; }
+
+.pm-hist-day { display: block; font-weight: 700; font-size: 14px; color: var(--text-dark); }
+.pm-hist-mapels { font-size: 12px; color: var(--text-gray); font-weight: 500; }
+
+.pm-hist-tag {
+  background: #f1f5f9;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-gray);
+}
+
+.pm-hist-tag.warning {
+  background: #fee2e2;
+  color: var(--warning);
+}
+
+/* Penyesuaian Area Scanner */
+#reader {
+  width: 100% !important;
+  border: none !important;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+#reader video {
+  border-radius: 24px;
+  object-fit: cover;
+}
+
+/* Sembunyikan pesan sukses bawaan library agar tidak double */
+#reader__dashboard_section_csr button {
+  background: var(--primary-teal) !important;
+  color: white !important;
+  border-radius: 8px !important;
+  padding: 8px 15px !important;
+  border: none !important;
+  cursor: pointer;
+}
+
+.pm-scan-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.btn-retry {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid var(--border-color);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--text-gray);
+}
+
+.pm-status-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.success-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pm-btn-outline {
+  margin-top: 15px;
+  padding: 8px 20px;
+  border: 1px solid #1a746b;
+  color: #1a746b;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}

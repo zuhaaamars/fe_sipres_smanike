@@ -1,0 +1,138 @@
+.buat-surat-container {
+  padding: 30px 40px;
+  background-color: #f1f5f9;
+  min-height: 100vh;
+}
+
+.page-header h1 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 25px;
+}
+
+.form-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.form-section {
+  padding: 30px;
+}
+
+/* Header Biru/Teal untuk Data Pemohon */
+.section-readonly {
+  background-color: #0d9488; /* Warna Teal sesuai mockup */
+  color: white;
+}
+
+.section-header h2, .section-header-detail h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+/* Grid Layout */
+.grid-inputs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.main-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+}
+
+/* Input Styles */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+input, select, textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background-color: #f8fafc;
+  font-size: 0.95rem;
+}
+
+.input-disabled {
+  background-color: #d1d5db; /* Abu-abu sesuai mockup */
+  color: #4b5563;
+  cursor: not-allowed;
+}
+
+/* File Upload Style */
+.file-upload-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #f8fafc;
+  overflow: hidden;
+}
+
+.btn-upload-label {
+  background: #cbd5e1;
+  padding: 10px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  border-right: 1px solid #cbd5e1;
+}
+
+.file-name-text {
+  padding-left: 15px;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* Tombol Bawah */
+.form-actions-bar {
+  display: flex;
+  gap: 20px;
+  padding: 25px 30px;
+  background-color: #f1f5f9;
+}
+
+.btn-batal-kirim {
+  flex: 1;
+  background-color: #e2e8f0;
+  color: #475569;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn-kirim-ajuan {
+  flex: 1;
+  background-color: #38bdf8; /* Biru langit sesuai mockup */
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .grid-inputs { grid-template-columns: repeat(2, 1fr); }
+  .main-form-grid { grid-template-columns: 1fr; }
+}

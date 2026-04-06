@@ -1,0 +1,147 @@
+.sidebar {
+  width: 280px;
+  /* Kunci utama agar pas dengan layar */
+  height: 100vh; 
+  position: sticky;
+  top: 0;
+  left: 0;
+  
+  /* Mencegah sidebar menyempit saat konten kanan melebar */
+  flex-shrink: 0; 
+  
+  background-color: #0f3d3a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.sidebar-menu {
+  flex: 1;
+  padding: 10px 15px;
+  /* Jika menu terlalu banyak, area menu saja yang bisa di-scroll internal */
+  overflow-y: auto; 
+}
+
+/* Sisa CSS ke bawah tetap sama... */
+
+.sidebar-header {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.sidebar-logo {
+  width: 80px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.sidebar-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  line-height: 1.4;
+}
+
+/* ... Bagian atas tetap sama ... */
+
+/* Item Menu Utama */
+.menu-item, .menu-item-header {
+  display: flex;
+  align-items: center;
+  /* TAMBAHKAN GAP DI SINI agar icon tidak mepet ke teks */
+  gap: 12px; 
+  
+  padding: 12px 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: 0.2s;
+  color: #94a3b8;
+  text-decoration: none; /* Tambahan agar link tidak bergaris bawah */
+}
+
+/* Pastikan teks di dalam menu item punya ukuran yang sama */
+.menu-item span, .menu-label span {
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.menu-item:hover, .menu-item-header:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+}
+
+.menu-item.active {
+  background-color: #1a746b; 
+  color: white !important; /* Paksa warna putih saat aktif */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Menu Label (Untuk yang ada dropdown) */
+.menu-label {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Tetap pertahankan gap di sini */
+  flex: 1; /* Agar chevron terdorong ke kanan */
+}
+
+/* Sub Menu - Beri sedikit jarak agar tidak terlalu mepet ke kiri */
+.sub-menu {
+  margin-left: 25px; 
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+  padding-left: 10px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.sub-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 15px;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+/* Perbaikan Active State untuk Sub Item */
+.sub-item.active {
+  background-color: rgba(26, 116, 107, 0.2); /* Teal transparan untuk sub-item aktif */
+  color: #2dd4bf !important; /* Warna teal cerah agar beda dengan menu utama */
+  font-weight: 700;
+}
+
+.logout {
+  color: white;
+  margin-top: auto;
+}
+
+.link-style {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+/* --- RESPONSIVE SIDEBAR --- */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 80px; /* Sidebar mengecil hanya ikon saja */
+  }
+  .sidebar-title, .menu-item span, .menu-label span, .sub-menu, .sidebar-header p {
+    display: none; /* Sembunyikan teks di tablet */
+  }
+  .sidebar-logo { width: 40px; }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    display: none; /* Sembunyikan total di HP (Bisa tambahkan Hamburger Menu nanti) */
+  }
+}
