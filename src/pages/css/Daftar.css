@@ -1,3 +1,10 @@
+/* --- RESET & BASE --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .daftar-container {
   min-height: 100vh;
   background: linear-gradient(180deg, #e2fbf8 0%, #ffffff 100%);
@@ -5,8 +12,10 @@
   flex-direction: column;
   align-items: center;
   padding: 40px 20px;
+  font-family: 'Inter', -apple-system, sans-serif;
 }
 
+/* --- CARD STYLE --- */
 .daftar-card {
   background: #f8fafc;
   width: 100%;
@@ -14,7 +23,7 @@
   padding: 50px 70px;
   border-radius: 30px;
   border: 4px solid #ccfbf1;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
   margin-top: 20px;
 }
 
@@ -25,69 +34,99 @@
   font-weight: 800;
   margin-bottom: 50px;
   letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
+/* --- FORM LAYOUT (HORIZONTAL) --- */
 .form-group-row {
   display: flex;
-  align-items: center;
-  margin-bottom: 25px;
+  align-items: center; /* Kunci agar Label & Input sejajar tengah vertikal */
+  margin-bottom: 22px;
   gap: 30px;
 }
 
 .form-group-row label {
-  flex: 0 0 220px;
+  flex: 0 0 220px; /* Lebar label tetap di kiri */
   font-weight: 700;
   color: #075985;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
+/* --- INPUT & SELECT STYLING --- */
 .form-group-row input, 
 .form-group-row select, 
 .input-with-icon, 
 .phone-input-group {
   flex: 1;
+  width: 100%;
+  height: 48px; /* Tinggi seragam untuk semua elemen */
   background: #ffffff;
   border: 1.5px solid #444;
   border-radius: 8px;
-  padding: 12px 15px;
+  padding: 0 15px; /* Padding kiri-kanan saja */
   font-size: 1rem;
+  color: #333;
+  outline: none;
+  display: flex;
+  align-items: center; /* Memaksa teks/konten di tengah vertikal */
+  transition: border-color 0.2s;
 }
 
-/* Input Password dengan Icon */
-.input-with-icon {
-  display: flex;
-  padding: 0;
+.form-group-row input:focus, 
+.form-group-row select:focus {
+  border-color: #2374a3;
+  box-shadow: 0 0 0 3px rgba(35, 116, 163, 0.1);
+}
+
+/* --- SPECIAL INPUTS (PASSWORD & PHONE) --- */
+.input-with-icon, 
+.phone-input-group {
+  padding: 0 !important; /* Reset padding karena didalamnya ada elemen lain */
   overflow: hidden;
 }
-.input-with-icon input { border: none; }
+
+.input-with-icon input, 
+.phone-input-group input {
+  border: none !important;
+  height: 100% !important;
+  padding: 0 15px !important;
+  background: transparent !important;
+}
+
 .input-with-icon button {
   background: none;
   border: none;
   padding: 0 15px;
   cursor: pointer;
   color: #64748b;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
-/* Phone Input Style */
-.phone-input-group {
-  display: flex;
-  padding: 0;
+.input-with-icon button:hover {
+  color: #075985;
 }
+
+/* Phone Group Details */
 .country-select {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 0 15px;
   border-right: 1.5px solid #444;
-  background: #fff;
+  background: #f1f5f9;
+  height: 100%;
+  font-weight: 600;
+  color: #475569;
 }
-.phone-input-group input { border: none; }
 
-/* Buttons */
+/* --- FOOTER BUTTONS --- */
 .daftar-footer-buttons {
   display: flex;
   justify-content: space-between;
   margin-top: 50px;
+  gap: 20px;
 }
 
 .btn-kembali-daftar {
@@ -97,7 +136,13 @@
   padding: 12px 35px;
   border-radius: 10px;
   font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-kembali-daftar:hover {
+  background: #94a3b8;
 }
 
 .btn-lanjut {
@@ -107,21 +152,29 @@
   padding: 12px 30px;
   border-radius: 10px;
   font-weight: 700;
+  font-size: 1rem;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
-.btn-lanjut:hover { background: #1a5a7e; }
+.btn-lanjut:hover:not(:disabled) {
+  background: #1a5a7e;
+  transform: translateY(-2px);
+}
 
-/* --- RESPONSIVE BREAKPOINTS --- */
+.btn-lanjut:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
 
-/* Tablet & HP Besar (Lebar di bawah 768px) */
+/* --- RESPONSIVE (MOBILE) --- */
 @media (max-width: 768px) {
   .daftar-card {
-    padding: 30px 25px; /* Kurangi padding agar tidak sempit */
-    margin: 10px;
+    padding: 30px 25px;
     width: 95%;
   }
 
@@ -131,9 +184,9 @@
   }
 
   .form-group-row {
-    flex-direction: column; /* Label dan Input jadi atas-bawah */
+    flex-direction: column; /* Label jadi di atas input */
     align-items: flex-start;
-    gap: 8px; /* Jarak antara label dan input */
+    gap: 8px;
     margin-bottom: 20px;
   }
 
@@ -143,39 +196,21 @@
     font-size: 1rem;
   }
 
-  .form-group-row input, 
-  .form-group-row select, 
-  .input-with-icon, 
-  .phone-input-group {
-    width: 100%; /* Input memenuhi lebar layar */
-  }
-
   .daftar-footer-buttons {
-    flex-direction: column-reverse; /* Tombol tumpuk, "Lanjut" di atas */
+    flex-direction: column-reverse;
     gap: 15px;
-    margin-top: 30px;
   }
 
   .btn-lanjut, .btn-kembali-daftar {
-    width: 100%; /* Tombol jadi full width */
+    width: 100%;
     justify-content: center;
     padding: 14px;
   }
 }
 
-/* HP Kecil (Lebar di bawah 480px) */
 @media (max-width: 480px) {
-  .daftar-container {
-    padding-top: 20px;
-  }
-
   .daftar-card {
-    border-width: 2px; /* Tipiskan border di layar kecil */
+    border-width: 2px;
     padding: 20px 15px;
-  }
-
-  .country-select {
-    padding: 0 8px;
-    font-size: 0.9rem;
   }
 }

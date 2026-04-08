@@ -43,26 +43,13 @@ const LandingPage = () => {
 
           <div className="hero-buttons">
 
-            {/* ✅ LOGIN DROPDOWN FIX */}
-            <div className="dropdown-login" ref={dropdownRef}>
-              <button 
-                className="btn-login"
-                onClick={() => setOpenDropdown(!openDropdown)}
-              >
-                <LogIn size={20} /> LOGIN ▼
-              </button>
-
-              {openDropdown && (
-                <div className="dropdown-menu">
-                  <button onClick={() => navigate('/Login-siswa')}>
-                    Login Siswa
-                  </button>
-                  <button onClick={() => navigate('/Login-guru')}>
-                    Login Guru
-                  </button>
-                </div>
-              )}
-            </div>
+            {/* ✅ LOGIN SINGLE BUTTON FIX */}
+            <button 
+              className="btn-login"
+              onClick={() => navigate('/Login')}
+            >
+              <LogIn size={20} /> LOGIN
+            </button>
 
             {/* DAFTAR */}
             <button 

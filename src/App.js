@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+
+
 // Import Komponen
 import Navbar from './components/navbar.jsx'; 
 import SidebarSiswa from './components/Sidebar-siswa.jsx'; 
@@ -9,14 +11,14 @@ import SidebarWaliKelas from './components/Sidebar-wali.jsx';
 import SidebarTU from './components/Sidebar-Tendik.jsx';
 import SidebarKepsek from './components/Sidebar-kepsek.jsx';
 
-
 // Import Pages LOGIN DAN DAFTAR
 import LandingPage from './pages/LandingPage';
+import Login from './pages/Login';
 import Daftar from './pages/Daftar';
-import DaftarTendik from './pages/tendik/Daftar-tendik.jsx';
+import DaftarTendik from './pages/tendik/Daftar-tendik';
 
 // Import Pages role SISWA
-import LoginSiswa from './pages/Login-siswa.jsx';
+import DaftarSiswa from './pages/siswa/Daftar-siswa';
 import DashboardSiswa from './pages/siswa/Dashboard-siswa.jsx'; 
 import AjuanSuratSiswa from './pages/siswa/AjuanSurat-siswa.jsx';
 import RiwayatSuratSiswa from './pages/siswa/RiwayatSurat-siswa.jsx';
@@ -25,7 +27,6 @@ import ScanPresensiMapel from './pages/siswa/PresensiMapel-siswa.jsx';
 import RiwayatPresensiMapel from './pages/siswa/RiwayatPresensiMapel.jsx';
 
 // Import Pages role GURU
-import LoginGuru from './pages/Login-guru.jsx';
 import DashboardGuru from './pages/guru/Dashboard-guru.jsx';
 import AjuanSuratGuru from './pages/guru/AjuanSurat-guru.jsx';
 import RiwayatVerifikasiGuru from './pages/guru/RiwayatVerifikasi-guru.jsx';
@@ -143,16 +144,14 @@ const KepsekLayout = ({ children }) => (
   </div>
 );
 
-
-
 function App() {
   return (
     <Router>
       <Routes>
         {/* --- PUBLIC ROUTES --- */}
         <Route path="/" element={<MainLayout><LandingPage /></MainLayout>} />
-        <Route path="/Login-siswa" element={<MainLayout><LoginSiswa /></MainLayout>} />
-        <Route path="/Login-guru" element={<MainLayout><LoginGuru /></MainLayout>} />
+        <Route path="/Login" element={<MainLayout><Login /></MainLayout>} />
+        <Route path="/siswa/Daftar-siswa" element={<MainLayout><DaftarSiswa /></MainLayout>} />
         <Route path="/daftar" element={<MainLayout><Daftar /></MainLayout>} />
         <Route path="/tendik/Daftar-tendik" element={<MainLayout><DaftarTendik /></MainLayout>} />
 
