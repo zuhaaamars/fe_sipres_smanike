@@ -6,9 +6,9 @@ import {
   XCircle, 
   Eye 
 } from 'lucide-react';
-import '../css/Dashboard-guru.css';
+import '../css/AjuanSurat-staff.css';
 
-const AjuanSuratTendik = () => {
+const AjuanSuratStaff = () => {
 
   const [search, setSearch] = useState('');
 
@@ -135,4 +135,4 @@ const AjuanSuratTendik = () => {
   );
 };
 
-export default AjuanSuratTendik;
+export default AjuanSuratStaff;

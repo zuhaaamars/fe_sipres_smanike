@@ -1,47 +1,54 @@
 import React, { useState } from 'react';
 import { 
-  CalendarDays, 
+  CalendarRange, 
   Users, 
   CheckCircle2, 
-  AlertCircle,
-  XCircle
+  AlertCircle, 
+  XCircle,
+  FileDown
 } from 'lucide-react';
-import '../css/Dashboard-guru.css';
+import '../css/LaporanPresensi-staff.css';
 
-const RekapHarianTendik = () => {
-  const [tanggal, setTanggal] = useState('2026-02-02');
+const LaporanPresensi = () => {
 
-  const dataPresensi = [
+  const [tanggalMulai, setTanggalMulai] = useState('2026-02-01');
+  const [tanggalAkhir, setTanggalAkhir] = useState('2026-02-07');
+
+  const data = [
     {
       nama: "Aditya Pratama",
       kelas: "XII RPL 1",
-      status: "Hadir",
-      waktu: "07:05"
+      hadir: 6,
+      izin: 1,
+      alfa: 0
     },
     {
       nama: "Bina Reza",
       kelas: "XII RPL 1",
-      status: "Hadir",
-      waktu: "07:12"
+      hadir: 5,
+      izin: 1,
+      alfa: 1
     },
     {
       nama: "Siti Aminah",
       kelas: "XII RPL 1",
-      status: "Izin",
-      waktu: "-"
+      hadir: 4,
+      izin: 2,
+      alfa: 1
     },
     {
       nama: "Dewi Lestari",
       kelas: "XII RPL 2",
-      status: "Alfa",
-      waktu: "-"
+      hadir: 3,
+      izin: 1,
+      alfa: 3
     }
   ];
 
-  // HITUNG REKAP
-  const hadir = dataPresensi.filter(d => d.status === "Hadir").length;
-  const izin = dataPresensi.filter(d => d.status === "Izin").length;
-  const alfa = dataPresensi.filter(d => d.status === "Alfa").length;
+  // TOTAL GLOBAL
+  const totalHadir = data.reduce((sum, d) => sum + d.hadir, 0);
+  const totalIzin = data.reduce((sum, d) => sum + d.izin, 0);
+  const totalAlfa = data.reduce((sum, d) => sum + d.alfa, 0);
 
   return (
     <div className="dg-container">
@@ -49,8 +56,8 @@ const RekapHarianTendik = () => {
       {/* HEADER */}
       <header className="dg-header">
         <div className="dg-header-info">
-          <h1>Rekap Presensi Harian</h1>
-          <p>Monitoring kehadiran seluruh siswa per hari</p>
+          <h1>Laporan Presensi</h1>
+          <p>Rekap kehadiran siswa berdasarkan periode</p>
         </div>
 
         <div className="dg-user-badge">
@@ -63,29 +70,47 @@ const RekapHarianTendik = () => {
       </header>
 
       {/* FILTER TANGGAL */}
-      <div style={{ margin: '20px 0' }}>
+      <div style={{ display: 'flex', gap: '10px', margin: '20px 0' }}>
+        
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '10px',
+          gap: '8px',
           background: '#fff',
           padding: '10px',
           borderRadius: '8px'
         }}>
-          <CalendarDays size={18} />
-          <input
-            type="date"
-            value={tanggal}
-            onChange={(e) => setTanggal(e.target.value)}
-            style={{
-              border: 'none',
-              outline: 'none'
-            }}
+          <CalendarRange size={16} />
+          <input 
+            type="date" 
+            value={tanggalMulai}
+            onChange={(e) => setTanggalMulai(e.target.value)}
           />
         </div>
+
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          background: '#fff',
+          padding: '10px',
+          borderRadius: '8px'
+        }}>
+          <CalendarRange size={16} />
+          <input 
+            type="date" 
+            value={tanggalAkhir}
+            onChange={(e) => setTanggalAkhir(e.target.value)}
+          />
+        </div>
+
+        <button className="dg-btn">
+          <FileDown size={16} /> Export
+        </button>
+
       </div>
 
-      {/* RINGKASAN */}
+      {/* SUMMARY */}
       <div className="dg-action-grid">
 
         <div className="dg-action-card">
@@ -93,8 +118,8 @@ const RekapHarianTendik = () => {
             <CheckCircle2 size={24} />
           </div>
           <div className="dg-action-content">
-            <h3>Hadir</h3>
-            <p>{hadir} Siswa</p>
+            <h3>Total Hadir</h3>
+            <p>{totalHadir}</p>
           </div>
         </div>
 
@@ -103,8 +128,8 @@ const RekapHarianTendik = () => {
             <AlertCircle size={24} />
           </div>
           <div className="dg-action-content">
-            <h3>Izin</h3>
-            <p>{izin} Siswa</p>
+            <h3>Total Izin</h3>
+            <p>{totalIzin}</p>
           </div>
         </div>
 
@@ -113,8 +138,8 @@ const RekapHarianTendik = () => {
             <XCircle size={24} />
           </div>
           <div className="dg-action-content">
-            <h3>Alfa</h3>
-            <p>{alfa} Siswa</p>
+            <h3>Total Alfa</h3>
+            <p>{totalAlfa}</p>
           </div>
         </div>
 
@@ -123,17 +148,19 @@ const RekapHarianTendik = () => {
             <Users size={24} />
           </div>
           <div className="dg-action-content">
-            <h3>Total</h3>
-            <p>{dataPresensi.length} Siswa</p>
+            <h3>Total Siswa</h3>
+            <p>{data.length}</p>
           </div>
         </div>
 
       </div>
 
-      {/* TABEL */}
+      {/* TABLE */}
       <div className="dg-table-section">
         <div className="dg-section-title">
-          <h2>Data Presensi ({tanggal})</h2>
+          <h2>
+            Laporan ({tanggalMulai} s/d {tanggalAkhir})
+          </h2>
         </div>
 
         <div className="dg-table-card">
@@ -142,25 +169,20 @@ const RekapHarianTendik = () => {
               <tr>
                 <th>Nama</th>
                 <th>Kelas</th>
-                <th>Status</th>
-                <th>Waktu Masuk</th>
+                <th>Hadir</th>
+                <th>Izin</th>
+                <th>Alfa</th>
               </tr>
             </thead>
 
             <tbody>
-              {dataPresensi.map((item, index) => (
+              {data.map((item, index) => (
                 <tr key={index}>
                   <td>{item.nama}</td>
                   <td>{item.kelas}</td>
-                  <td>
-                    <span className={`dg-badge ${
-                      item.status === 'Hadir' ? 'hadir' :
-                      item.status === 'Izin' ? 'izin' : 'belum'
-                    }`}>
-                      {item.status}
-                    </span>
-                  </td>
-                  <td>{item.waktu}</td>
+                  <td><span className="dg-badge hadir">{item.hadir}</span></td>
+                  <td><span className="dg-badge izin">{item.izin}</span></td>
+                  <td><span className="dg-badge belum">{item.alfa}</span></td>
                 </tr>
               ))}
             </tbody>
@@ -173,4 +195,4 @@ const RekapHarianTendik = () => {
   );
 };
 
-export default RekapHarianTendik;
+export default LaporanPresensi;

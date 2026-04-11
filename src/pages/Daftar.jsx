@@ -84,7 +84,7 @@ const Daftar = () => {
           
           <div className="form-group-row">
             <label>Nama Lengkap</label>
-            <input type="text" name="nama_lengkap" placeholder="Sesuai ijazah" onChange={handleChange} required />
+            <input type="text" name="nama_lengkap" placeholder="Nama Lengkap" onChange={handleChange} required />
           </div>
 
           <div className="form-group-row">

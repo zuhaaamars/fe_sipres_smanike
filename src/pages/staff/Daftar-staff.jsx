@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import '../css/Daftar-kepsek.css';
+import '../css/Daftar-staff.css';
 
-const DaftarKepsek = () => {
+const DaftarStaff = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -14,8 +14,8 @@ const DaftarKepsek = () => {
   const [formData, setFormData] = useState({
     nip: '',
     nama_lengkap: '',
-    periode_mulai: '',
-    periode_selesai: ''
+    bagian: '',
+    no_hp: ''
   });
 
   const handleChange = (e) => {
@@ -31,18 +31,18 @@ const DaftarKepsek = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/kepsek', {
+      const response = await axios.post('http://localhost:5000/api/staf', {
         ...formData,
         user_id: userId
       });
 
       if (response.status === 201) {
-        alert("Profil Kepala Sekolah berhasil disimpan!");
+        alert("Profil staf berhasil disimpan!");
         navigate('/login');
       }
 
     } catch (err) {
-      alert(err.response?.data?.message || "Gagal menyimpan data kepsek");
+      alert(err.response?.data?.message || "Gagal menyimpan data staf");
     } finally {
       setIsLoading(false);
     }
@@ -51,13 +51,13 @@ const DaftarKepsek = () => {
   return (
     <div className="daftar-container">
       <div className="daftar-card">
-        <h2 className="daftar-title">LENGKAPI PROFIL KEPALA SEKOLAH</h2>
+        <h2 className="daftar-title">LENGKAPI PROFIL STAF</h2>
 
         <form className="daftar-form" onSubmit={handleSubmit}>
 
           <div className="form-group-row">
-            <label>NIP</label>
-            <input type="text" name="nip" onChange={handleChange} required />
+            <label>NIP (Opsional)</label>
+            <input type="text" name="nip" placeholder="Kosongkan jika honorer" onChange={handleChange} />
           </div>
 
           <div className="form-group-row">
@@ -66,13 +66,22 @@ const DaftarKepsek = () => {
           </div>
 
           <div className="form-group-row">
-            <label>Periode Mulai</label>
-            <input type="date" name="periode_mulai" onChange={handleChange} />
+            <label>Bagian</label>
+            <select name="bagian" onChange={handleChange}>
+              <option value="">-- Pilih Bagian --</option>
+              <option value="Tata Usaha">Tata Usaha</option>
+              <option value="Perpustakaan">Perpustakaan</option>
+              <option value="Administrasi">Administrasi</option>
+              <option value="Operator Sekolah">Operator Sekolah</option>
+            </select>
           </div>
 
           <div className="form-group-row">
-            <label>Periode Selesai</label>
-            <input type="date" name="periode_selesai" onChange={handleChange} />
+            <label>Nomor HP</label>
+            <div className="phone-input-group">
+              <div className="country-select"><span>🇮🇩 +62</span></div>
+              <input type="text" name="no_hp" placeholder="8xxxxxxxx" onChange={handleChange} />
+            </div>
           </div>
 
           <div className="daftar-footer-buttons">
@@ -91,4 +100,4 @@ const DaftarKepsek = () => {
   );
 };
 
-export default DaftarKepsek;
+export default DaftarStaff;

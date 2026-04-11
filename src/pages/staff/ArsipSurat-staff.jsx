@@ -5,7 +5,7 @@ import {
   FileText, 
   Download 
 } from 'lucide-react';
-import '../css/Dashboard-guru.css';
+import '../css/ArsipSurat-staff.css';
 
 const ArsipSurat = () => {
   const [search, setSearch] = useState('');

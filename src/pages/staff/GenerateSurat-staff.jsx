@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { FileText, Eye, Download } from 'lucide-react';
-import '../css/Dashboard-guru.css';
+import '../css/GenerateSurat-staff.css';
 
-const GenerateSuratTendik = () => {
+const GenerateSuratStaff = () => {
 
   const [selectedSurat, setSelectedSurat] = useState(null);
 
@@ -143,7 +143,7 @@ const GenerateSuratTendik = () => {
   );
 };
 
-export default GenerateSuratTendik;
+export default GenerateSuratStaff;
 
 
 /* STYLE MODAL */

@@ -41,7 +41,7 @@ const SidebarTU = () => {
       <div className="sbg-menu-content">
 
         {/* DASHBOARD */}
-        <Link to="/tendik/Dashboard-tendik" className="sbg-link">
+        <Link to="/staff/Dashboard-staff" className="sbg-link">
           <div className={`sbg-item ${isActive('/tu/dashboard')}`}>
             <LayoutDashboard size={20} />
             <span>DASHBOARD</span>
@@ -60,13 +60,13 @@ const SidebarTU = () => {
 
           {openMenus.verifikasiSurat && (
             <div className="sbg-sub-container">
-              <Link to="/tendik/AjuanSurat" className="sbg-link">
+              <Link to="/staff/AjuanSurat-staff" className="sbg-link">
                 <div className={`sbg-sub-item ${isActive('/tu/ajuan-surat')}`}>
                   <ClipboardList size={18} /> <span>Daftar Ajuan</span>
                 </div>
               </Link>
 
-              <Link to="/tendik/RiwayatVerifikasi" className="sbg-link">
+              <Link to="/staff/RiwayatVerifikasi-staff" className="sbg-link">
                 <div className={`sbg-sub-item ${isActive('/tu/riwayat-verifikasi')}`}>
                   <History size={18} /> <span>Riwayat Verifikasi</span>
                 </div>
@@ -87,7 +87,7 @@ const SidebarTU = () => {
 
           {openMenus.generateSurat && (
             <div className="sbg-sub-container">
-              <Link to="/tendik/GenerateSurat" className="sbg-link">
+              <Link to="/staff/GenerateSurat-staff" className="sbg-link">
                 <div className={`sbg-sub-item ${isActive('/tu/buat-surat')}`}>
                   <FileText size={18} /> <span>Buat Surat</span>
                 </div>
@@ -108,7 +108,7 @@ const SidebarTU = () => {
 
           {openMenus.arsipSurat && (
             <div className="sbg-sub-container">
-              <Link to="/tendik/ArsipSurat" className="sbg-link">
+              <Link to="/staff/ArsipSurat-staff" className="sbg-link">
                 <div className={`sbg-sub-item ${isActive('/tu/arsip')}`}>
                   <Archive size={18} /> <span>Semua Surat</span>
                 </div>
@@ -129,13 +129,13 @@ const SidebarTU = () => {
 
           {openMenus.presensi && (
             <div className="sbg-sub-container">
-              <Link to="/tendik/RekapHarian" className="sbg-link">
+              <Link to="/staff/RekapHarian-staff" className="sbg-link">
                 <div className={`sbg-sub-item ${isActive('/tu/rekap-harian')}`}>
                   <History size={18} /> <span>Rekap Harian</span>
                 </div>
               </Link>
 
-              <Link to="/tendik/LaporanPresensi" className="sbg-link">
+              <Link to="/staff/LaporanPresensi-staff" className="sbg-link">
                 <div className={`sbg-sub-item ${isActive('/tu/laporan')}`}>
                   <ClipboardList size={18} /> <span>Laporan Presensi</span>
                 </div>

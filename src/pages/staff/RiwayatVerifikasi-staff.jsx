@@ -5,9 +5,9 @@ import {
   XCircle, 
   Eye 
 } from 'lucide-react';
-import '../css/Dashboard-guru.css';
+import '../css/RiwayatVerifikasi-staff.css';
 
-const RiwayatVerifikasiTendik = () => {
+const RiwayatVerifikasiStaff = () => {
 
   const [search, setSearch] = useState('');
 
@@ -131,4 +131,4 @@ const RiwayatVerifikasiTendik = () => {
   );
 };
 
-export default RiwayatVerifikasiTendik;
+export default RiwayatVerifikasiStaff;

@@ -9,9 +9,9 @@ import {
   ArrowRight, 
   CheckCircle2
 } from 'lucide-react';
-import '../css/Dashboard-guru.css';
+import '../css/Dashboard-staff.css';
 
-const DashboardTendik = () => {
+const DashboardStaff = () => {
   const navigate = useNavigate();
 
   return (
@@ -180,4 +180,4 @@ const DashboardTendik = () => {
   );
 };
 
-export default DashboardTendik;
+export default DashboardStaff;
