@@ -62,7 +62,7 @@ const DashboardGuru = () => {
           <div className="dg-icon-box teal"><QrCode size={24} /></div>
           <div className="dg-action-content">
             <h3>Presensi Mapel</h3>
-            <p>Generate QR untuk jam ke 3-4</p>
+            <p>Generate QR </p>
             <button className="dg-btn">Buka Barcode <ArrowRight size={16} /></button>
           </div>
         </div>

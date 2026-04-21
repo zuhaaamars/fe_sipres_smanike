@@ -80,22 +80,35 @@ const SidebarGuru = () => {
           </Link>
         )}
 
-        {/* REKAP PRESENSI MAPEL (LANGSUNG MENU UTAMA) */}
-        <Link to="/guru/RekapMapel-guru" className="sbg-link">
-          <div className={`sbg-item ${isActive('/guru/RekapMapel-guru')}`}>
-            <BookOpenCheck size={20} />
-            <span>REKAP PRESENSI MAPEL</span>
-          </div>
-        </Link>
-      </div>
+        {/* PRESENSI MAPEL (DROPDOWN BARU) */}
+<div className="sbg-group">
+  <div className="sbg-item-header" onClick={() => toggleMenu('presensiMapel')}>
+    <div className="sbg-label">
+      <BookOpenCheck size={20} />
+      <span>PRESENSI MAPEL</span>
+    </div>
+    <ChevronDown size={16} className={openMenus.presensiMapel ? 'sbg-rotate' : ''} />
+  </div>
 
-      <div className="sbg-footer-section">
-        <Link to="/login" className="sbg-link">
-          <div className="sbg-item sbg-logout-btn">
-            <LogOut size={20} />
-            <span>KELUAR</span>
-          </div>
-        </Link>
+  {openMenus.presensiMapel && (
+    <div className="sbg-sub-container">
+      <Link to="/guru/GenerateBarcodeMapel-guru" className="sbg-link">
+        <div className={`sbg-sub-item ${isActive('/guru/GenerateBarcodeMapel-guru')}`}>
+          <ClipboardList size={18} />
+          <span>Generate QR</span>
+        </div>
+      </Link>
+
+      <Link to="/guru/RekapMapel-guru" className="sbg-link">
+        <div className={`sbg-sub-item ${isActive('/guru/RekapMapel-guru')}`}>
+          <History size={18} />
+          <span>Rekap Presensi</span>
+        </div>
+      </Link>
+    </div>
+  )}
+</div>
+  
       </div>
     </div>
   );

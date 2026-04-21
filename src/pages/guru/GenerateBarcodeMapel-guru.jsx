@@ -1,125 +1,101 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  QrCode, 
-  RefreshCw, 
-  BookOpen, 
-  Users, 
-  Clock, 
-  Play
-} from 'lucide-react';
-import '../css/GenerateBarcodeMapel.css'; // Menggunakan base CSS yang sama dengan Harian
+import axios from 'axios';
+import { QRCodeCanvas } from 'qrcode.react';
+import '../css/GenerateBarcodeMapel-guru.css';
 
-const GenerateBarcodeMapel = () => {
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const [isStarted, setIsStarted] = useState(false);
-  const [selectedClass, setSelectedClass] = useState('');
-  const [selectedMapel, setSelectedMapel] = useState('');
+const GenerateQRMapel = () => {
+  const [mapel, setMapel] = useState('');
+  const [kelas, setKelas] = useState('');
+  const [jam, setJam] = useState('');
+  const [qrData, setQrData] = useState(null);
 
+  // 🔹 STATE UNTUK DATA MAPEL DARI DATABASE
+  const [listMapel, setListMapel] = useState([]);
+
+  // 🔹 AMBIL DATA MAPEL DARI BACKEND
+  const getMapel = async () => {
+    try {
+      const res = await axios.get('http://localhost:5000/api/mapel/');
+      setListMapel(res.data);
+    } catch (error) {
+      console.error('Error ambil mapel:', error);
+    }
+  };
+  
+  // 🔹 LOAD DATA SAAT HALAMAN DIBUKA
   useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timer);
+    getMapel();
   }, []);
 
-  const handleStartPresensi = () => {
-    if (selectedClass && selectedMapel) {
-      setIsStarted(true);
-    } else {
-      alert("Silakan pilih Kelas dan Mata Pelajaran terlebih dahulu!");
+  // 🔹 GENERATE QR
+  const handleGenerate = () => {
+    if (!mapel || !kelas || !jam) {
+      alert('Semua field harus diisi!');
+      return;
     }
+
+    const data = {
+      mapel,
+      kelas,
+      jam,
+      waktu: new Date().toISOString()
+    };
+
+    setQrData(JSON.stringify(data));
   };
 
   return (
-    <div className="gb-container">
-      <header className="gb-header">
-        <div className="gb-header-text">
-          <h1>Presensi Mata Pelajaran</h1>
-          <p>Guru Pengajar: <strong>Budi Santoso, S.Kom</strong></p>
+    <div className="container-mapel">
+      <h2>Generate QR Presensi Mapel</h2>
+
+      {/* FORM */}
+      <div className="form-mapel">
+        <h3>Form Generate QR</h3>
+
+        <div className="form-grid">
+
+          {/* 🔥 MAPEL DARI DATABASE */}
+          <select value={mapel} onChange={(e) => setMapel(e.target.value)}>
+            <option value="">Pilih Mapel</option>
+            {listMapel.map((item) => (
+              <option key={item.id} value={item.nama_mapel}>
+                {item.nama_mapel}
+              </option>
+            ))}
+          </select>
+
+          {/* KELAS */}
+          <select value={kelas} onChange={(e) => setKelas(e.target.value)}>
+            <option value="">Pilih Kelas</option>
+            <option>XII RPL 1</option>
+            <option>XII RPL 2</option>
+          </select>
+
+          {/* JAM */}
+          <select value={jam} onChange={(e) => setJam(e.target.value)}>
+            <option value="">Pilih Jam</option>
+            <option>Jam ke 1-2</option>
+            <option>Jam ke 3-4</option>
+          </select>
+
         </div>
-        <div className="gb-status-badge">
-          <Clock size={18} />
-          <span>{currentTime.toLocaleTimeString('id-ID')}</span>
-        </div>
-      </header>
 
-      <div className="gb-main-card">
-        {!isStarted ? (
-          /* FORM PEMILIHAN SEBELUM START */
-          <div className="gb-setup-form">
-            <div className="gb-icon-circle">
-              <BookOpen size={40} color="#1a746b" />
-            </div>
-            <h2>Mulai Sesi Mengajar</h2>
-            <p>Tentukan kelas dan mata pelajaran sebelum menampilkan barcode.</p>
-            
-            <div className="gb-form-group">
-              <label>Pilih Mata Pelajaran</label>
-              <select value={selectedMapel} onChange={(e) => setSelectedMapel(e.target.value)}>
-                <option value="">-- Pilih Mapel --</option>
-                <option value="Pemrograman Web">Pemrograman Web</option>
-                <option value="Basis Data">Basis Data</option>
-                <option value="Mobile Apps">Mobile Apps</option>
-              </select>
-            </div>
-
-            <div className="gb-form-group">
-              <label>Pilih Kelas</label>
-              <select value={selectedClass} onChange={(e) => setSelectedClass(e.target.value)}>
-                <option value="">-- Pilih Kelas --</option>
-                <option value="XII RPL 1">XII RPL 1</option>
-                <option value="XII RPL 2">XII RPL 2</option>
-                <option value="XI RPL 1">XI RPL 1</option>
-              </select>
-            </div>
-
-            <button className="gb-btn-start" onClick={handleStartPresensi}>
-              <Play size={18} /> Mulai Presensi
-            </button>
-          </div>
-        ) : (
-          /* TAMPILAN BARCODE SAAT SUDAH START */
-          <div className="gb-active-session">
-            <div className="gb-info-section">
-              <div className="gb-info-item">
-                <span className="label">Mata Pelajaran</span>
-                <span className="value">{selectedMapel}</span>
-              </div>
-              <div className="gb-info-item">
-                <span className="label">Kelas</span>
-                <span className="value">{selectedClass}</span>
-              </div>
-            </div>
-
-            <div className="gb-qr-wrapper">
-              <div className="gb-qr-box active">
-                <QrCode size={250} strokeWidth={1.5} color="#0f3d3a" />
-                <div className="gb-qr-overlay">MAPEL SCAN</div>
-              </div>
-              <p className="gb-qr-instruction">Siswa silakan scan untuk absen masuk kelas</p>
-            </div>
-
-            <div className="gb-controls">
-              <button className="gb-btn secondary" onClick={() => setIsStarted(false)}>
-                Selesaikan Sesi
-              </button>
-              <button className="gb-btn primary">
-                <RefreshCw size={18} /> Refresh QR
-              </button>
-            </div>
-          </div>
-        )}
+        <button className="btn-submit" onClick={handleGenerate}>
+          Generate QR
+        </button>
       </div>
 
-      {isStarted && (
-        <div className="gb-stats-grid">
-          <div className="gb-stat-card">
-            <Users size={20} />
-            <div className="stat-text">
-              <span>Sudah Absen</span>
-              <strong>28 / 36 Siswa</strong>
-            </div>
-          </div>
-          <div className="gb-live-indicator">
-            <span className="dot"></span> Live Monitoring
+      {/* QR RESULT */}
+      {qrData && (
+        <div className="form-mapel" style={{ textAlign: 'center' }}>
+          <h3>QR Presensi Aktif</h3>
+
+          <QRCodeCanvas value={qrData} size={220} />
+
+          <div style={{ marginTop: '15px', textAlign: 'left' }}>
+            <p><b>Mapel:</b> {mapel}</p>
+            <p><b>Kelas:</b> {kelas}</p>
+            <p><b>Jam:</b> {jam}</p>
           </div>
         </div>
       )}
@@ -127,4 +103,4 @@ const GenerateBarcodeMapel = () => {
   );
 };
 
-export default GenerateBarcodeMapel;
+export default GenerateQRMapel;

@@ -1,0 +1,149 @@
+/* CONTAINER */
+.container-mapel {
+  padding: 30px 40px;
+  background: linear-gradient(to bottom, #f1f5f9, #e2e8f0);
+  min-height: 100vh;
+}
+
+/* TITLE */
+.container-mapel h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 20px;
+}
+
+/* FORM CARD */
+.form-mapel {
+  background: white;
+  padding: 25px 30px;
+  border-radius: 18px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+.form-mapel:hover {
+  transform: translateY(-2px);
+}
+
+.form-mapel h3 {
+  margin-bottom: 20px;
+  font-weight: 700;
+  color: #0f3d3a;
+}
+
+/* GRID */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+/* INPUT */
+.form-grid input,
+.form-grid select {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+  transition: 0.2s;
+  background: #f8fafc;
+}
+
+.form-grid input:focus,
+.form-grid select:focus {
+  outline: none;
+  border-color: #0f3d3a;
+  background: white;
+  box-shadow: 0 0 0 2px rgba(15, 61, 58, 0.1);
+}
+
+/* BUTTON */
+.btn-submit {
+  margin-top: 20px;
+  padding: 12px 22px;
+  background: linear-gradient(135deg, #0f3d3a, #145a56);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-submit:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(15, 61, 58, 0.2);
+}
+
+/* TABLE CARD */
+.table-mapel {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+/* HEADER */
+.table-mapel th {
+  background: linear-gradient(135deg, #0f3d3a, #145a56);
+  color: white;
+  padding: 14px;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
+/* BODY */
+.table-mapel td {
+  padding: 14px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+  color: #334155;
+}
+
+/* ROW HOVER */
+.table-mapel tbody tr {
+  transition: 0.2s;
+}
+
+.table-mapel tbody tr:hover {
+  background-color: #f8fafc;
+  transform: scale(1.002);
+}
+
+/* EMPTY STATE */
+.table-mapel td[colspan] {
+  padding: 30px;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+/* BADGE KELOMPOK */
+.table-mapel td:nth-child(4) {
+  font-weight: 600;
+}
+
+.table-mapel td:nth-child(4)::before {
+  content: "● ";
+  color: #10b981;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .container-mapel {
+    padding: 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .table-mapel th,
+  .table-mapel td {
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+}

@@ -10,6 +10,7 @@ import SidebarGuru from './components/Sidebar-guru.jsx';
 import SidebarWaliKelas from './components/Sidebar-wali.jsx';
 import SidebarTU from './components/Sidebar-Tendik.jsx';
 import SidebarKepsek from './components/Sidebar-kepsek.jsx';
+import SidebarMaster from './components/Sidebar-master.jsx';
 
 // Import Pages LOGIN DAN DAFTAR
 import LandingPage from './pages/LandingPage';
@@ -24,6 +25,7 @@ import RiwayatSuratSiswa from './pages/siswa/RiwayatSurat-siswa.jsx';
 import ScanPresensiHarian from './pages/siswa/PresensiHarian-siswa.jsx';
 import ScanPresensiMapel from './pages/siswa/PresensiMapel-siswa.jsx';
 import RiwayatPresensiMapel from './pages/siswa/RiwayatPresensiMapel.jsx';
+import ScanQR from './pages/siswa/ScanQR-siswa.jsx';
 
 // Import Pages role GURU
 import DaftarGuru from './pages/guru/Daftar-guru.jsx';
@@ -32,7 +34,7 @@ import AjuanSuratGuru from './pages/guru/AjuanSurat-guru.jsx';
 import RiwayatVerifikasiGuru from './pages/guru/RiwayatVerifikasi-guru.jsx';
 import GenerateBarcodeHarian from './pages/guru/GenerateBarcodeHarian-guru.jsx';
 import RekapHarianGuru from './pages/guru/RekapHarian-guru.jsx';
-import GenerateBarcodeMapel from './pages/guru/GenerateBarcodeMapel-guru.jsx';
+import GenerateQRMapel from './pages/guru/GenerateBarcodeMapel-guru.jsx';
 import RekapMapelGuru from './pages/guru/RekapMapel-guru.jsx';
 
 //import pages role wali kelas
@@ -63,6 +65,12 @@ import GenerateSuratStaff from './pages/staff/GenerateSurat-staff.jsx';
 import ArsipSurat from './pages/staff/ArsipSurat-staff.jsx';
 import RekapHarian from './pages/staff/RekapHarian-staff.jsx';
 import LaporanPresensi from './pages/staff/LaporanPresensi-staff.jsx';
+
+//import pages role master
+import DataMapel from './pages/master/DataMapel-master.jsx';
+import DataGuruMaster from './pages/master/DataGuru-master.jsx';
+import DataKelasMaster from './pages/master/DataKelas-master.jsx';
+import DataJurusanMaster from './pages/master/DataJurusan-master.jsx';
 
 
 // 1. NAVBAR UNTUK LOGIN DAN DAFTAR
@@ -146,6 +154,23 @@ const KepsekLayout = ({ children }) => (
   </div>
 );
 
+// 4. SIDEBAR UNTUK MASTER
+const MasterLayout = ({ children }) => (
+  <div 
+    className="master-container" 
+    style={{ display: 'flex', minHeight: '100vh' }}
+  >
+    <SidebarMaster/>
+
+    <div 
+      className="master-main-content" 
+      style={{ flex: 1, backgroundColor: '#f4f4f4' }}
+    >
+      {children}
+    </div>
+  </div>
+);
+
 function App() {
   return (
     <Router>
@@ -164,6 +189,7 @@ function App() {
         <Route path="/siswa/PresensiHarian-siswa" element={<DashboardLayout><ScanPresensiHarian /></DashboardLayout>} />
         <Route path="/siswa/PresensiMapel-siswa" element={<DashboardLayout><ScanPresensiMapel /></DashboardLayout>} />
         <Route path="/siswa/RiwayatPresensiMapel" element={<DashboardLayout><RiwayatPresensiMapel /></DashboardLayout>} />
+        <Route path="/siswa/ScanQR-siswa" element={<DashboardLayout><ScanQR/></DashboardLayout>} />
 
         {/* --- GURU ROUTES (Baru) --- */}
         <Route path="/guru/Daftar-guru" element={<MainLayout><DaftarGuru /></MainLayout>} />
@@ -172,7 +198,7 @@ function App() {
         <Route path="/guru/RiwayatVerifikasi-guru" element={<GuruLayout><RiwayatVerifikasiGuru /></GuruLayout>} />
         <Route path="/guru/GenerateBarcodeHarian-guru" element={<GuruLayout><GenerateBarcodeHarian /></GuruLayout>} />
         <Route path="/guru/RekapHarian-guru" element={<GuruLayout><RekapHarianGuru /></GuruLayout>} />
-        <Route path="/guru/GenerateBarcodeMapel-guru" element={<GuruLayout><GenerateBarcodeMapel /></GuruLayout>} />
+        <Route path="/guru/GenerateBarcodeMapel-guru" element={<GuruLayout><GenerateQRMapel /></GuruLayout>} />
         <Route path="/guru/RekapMapel-guru" element={<GuruLayout><RekapMapelGuru /></GuruLayout>} />
 
         {/* --- Wali kelas (ROUTES) --- */}
@@ -203,8 +229,13 @@ function App() {
         <Route path="/kepsek/DataGuru" element={<KepsekLayout><DataGuru/></KepsekLayout>} />
         <Route path="/kepsek/DataTendik" element={<KepsekLayout><DataTendik/></KepsekLayout>} />
         <Route path="/kepsek/DataKelas" element={<KepsekLayout><DataKelas/></KepsekLayout>} />
-        
 
+        {/* --- Master) --- */}
+         <Route path="/master/DataMapel-master" element={<MasterLayout><DataMapel /></MasterLayout>} />
+         <Route path="/master/DataGuru-master" element={<MasterLayout><DataGuruMaster /></MasterLayout>} />
+         <Route path="/master/DataKelas-master" element={<MasterLayout><DataKelasMaster /></MasterLayout>} />
+         <Route path="/master/DataJurusan-master" element={<MasterLayout><DataJurusanMaster /></MasterLayout>} />
+        
 
 
       </Routes>
