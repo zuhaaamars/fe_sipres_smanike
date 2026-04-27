@@ -25,7 +25,6 @@ import RiwayatSuratSiswa from './pages/siswa/RiwayatSurat-siswa.jsx';
 import ScanPresensiHarian from './pages/siswa/PresensiHarian-siswa.jsx';
 import ScanPresensiMapel from './pages/siswa/PresensiMapel-siswa.jsx';
 import RiwayatPresensiMapel from './pages/siswa/RiwayatPresensiMapel.jsx';
-import ScanQR from './pages/siswa/ScanQR-siswa.jsx';
 
 // Import Pages role GURU
 import DaftarGuru from './pages/guru/Daftar-guru.jsx';
@@ -189,7 +188,6 @@ function App() {
         <Route path="/siswa/PresensiHarian-siswa" element={<DashboardLayout><ScanPresensiHarian /></DashboardLayout>} />
         <Route path="/siswa/PresensiMapel-siswa" element={<DashboardLayout><ScanPresensiMapel /></DashboardLayout>} />
         <Route path="/siswa/RiwayatPresensiMapel" element={<DashboardLayout><RiwayatPresensiMapel /></DashboardLayout>} />
-        <Route path="/siswa/ScanQR-siswa" element={<DashboardLayout><ScanQR/></DashboardLayout>} />
 
         {/* --- GURU ROUTES (Baru) --- */}
         <Route path="/guru/Daftar-guru" element={<MainLayout><DaftarGuru /></MainLayout>} />

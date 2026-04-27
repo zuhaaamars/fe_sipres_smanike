@@ -1,10 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Mail, User, ChevronDown, QrCode, Clock, CheckCircle } from 'lucide-react';
 import '../css/Dashboard-siswa.css';
 
 const DashboardSiswa = () => {
+
+  const [nama, setNama] = useState("");
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const res = await axios.get("http://localhost:5000/api/auth/me", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        setNama(res.data.data.nama_lengkap);
+
+      } catch (err) {
+        console.error("Gagal ambil user:", err);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   return (
     <div className="dashboard-content-inner">
+      
       {/* Header Profile - Pojok Kanan Atas */}
       <header className="content-header">
         <div className="user-profile-dropdown">
@@ -12,7 +38,7 @@ const DashboardSiswa = () => {
             <div className="user-avatar">
               <User size={18} strokeWidth={3} />
             </div>
-            <span>Nama Siswa</span>
+            <span>{nama || "Nama Siswa"}</span>
             <ChevronDown size={16} />
           </div>
         </div>
@@ -20,24 +46,23 @@ const DashboardSiswa = () => {
 
       {/* Teks Sambutan */}
       <h1 className="welcome-text">
-        Halo, (Nama Siswa) ! Selamat datang di SIPRES SMANIKE !
+        Halo, {nama || "(Nama Siswa)"} ! Selamat datang di SIPRES SMANIKE !
       </h1>
 
-      {/* Grid Utama - 3 Kolom Penuh [cite: 2] */}
+      {/* Grid Utama */}
       <div className="dashboard-grid">
         
-        {/* Kartu 1: Ringkasan Surat (Alur Tkt 1) [cite: 1, 2] */}
         <div className="dashboard-card">
           <div className="card-header-box">
              <h3>Ringkasan Surat</h3>
-             <p className="card-subtitle">Pantau alur ajuan surat Anda [cite: 4]</p>
+             <p className="card-subtitle">Pantau alur ajuan surat Anda</p>
           </div>
           <div className="card-body">
             <div className="flow-status waiting">
-              <Clock size={16} /> <span>1 Menunggu Verifikasi TU [cite: 4]</span>
+              <Clock size={16} /> <span>1 Menunggu Verifikasi TU</span>
             </div>
             <div className="flow-status validated">
-              <CheckCircle size={16} /> <span>2 Surat Telah divalidasi Kepsek [cite: 4]</span>
+              <CheckCircle size={16} /> <span>2 Surat Telah divalidasi Kepsek</span>
             </div>
           </div>
           <button className="btn-action blue">
@@ -45,45 +70,43 @@ const DashboardSiswa = () => {
           </button>
         </div>
 
-        {/* Kartu 2: Status Presensi Harian (Geofencing) [cite: 3, 4] */}
         <div className="dashboard-card">
           <div className="card-header-box">
             <h3>Status Presensi Harian</h3>
-            <p className="card-subtitle">Radius 50m dari area sekolah [cite: 3, 4]</p>
+            <p className="card-subtitle">Radius 50m dari area sekolah</p>
           </div>
           <div className="card-body">
             <div className="status-row present">
               <span className="dot"></span>
-              <p>Datang - 07.05 [cite: 2, 4]</p>
+              <p>Datang - 07.05</p>
             </div>
             <div className="status-row not-yet">
               <span className="dot"></span>
-              <p>Pulang - Belum [cite: 2, 4]</p>
+              <p>Pulang - Belum</p>
             </div>
           </div>
           <button className="btn-action dark-teal">
-            <QrCode size={18} /> Scan Barcode Harian [cite: 4]
+            <QrCode size={18} /> Scan Barcode Harian
           </button>
         </div>
 
-        {/* Kartu 3: Status Presensi Mapel [cite: 1, 4] */}
         <div className="dashboard-card">
           <div className="card-header-box">
             <h3>Status Presensi Mapel</h3>
-            <p className="card-subtitle">Scan setiap mulai & selesai mapel [cite: 4]</p>
+            <p className="card-subtitle">Scan setiap mulai & selesai mapel</p>
           </div>
           <div className="card-body list-mapel">
             <div className="mapel-badge present">
               <span className="dot"></span>
-              <p>Matematika (Hadir) [cite: 2]</p>
+              <p>Matematika (Hadir)</p>
             </div>
             <div className="mapel-badge present">
               <span className="dot"></span>
-              <p>Sejarah (Hadir) [cite: 2]</p>
+              <p>Sejarah (Hadir)</p>
             </div>
             <div className="mapel-badge present">
               <span className="dot"></span>
-              <p>Ekonomi (Hadir) [cite: 2]</p>
+              <p>Ekonomi (Hadir)</p>
             </div>
             <div className="mapel-badge not-yet">
               <span className="dot"></span>
@@ -92,7 +115,6 @@ const DashboardSiswa = () => {
           </div>
         </div>
 
-        {/* Kartu 4: Pengumuman (Lebar Penuh) [cite: 2, 4] */}
         <div className="dashboard-card card-full">
           <div className="card-header-box">
             <h3>PENGUMUMAN SEKOLAH</h3>
@@ -103,10 +125,8 @@ const DashboardSiswa = () => {
         </div>
       </div>
 
-      {/* Footer Navigasi Sosial */}
       <footer className="dashboard-footer-content">
         <div className="social-icons">
-          {/* Pastikan path icon sesuai dengan folder public Anda */}
           <img src="/icons/web.png" alt="" />
           <img src="/icons/fb.png" alt="" />
           <img src="/icons/ig.png" alt="" />

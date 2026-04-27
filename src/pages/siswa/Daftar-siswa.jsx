@@ -7,7 +7,6 @@ const DaftarSiswa = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // Ambil userId yang dikirim dari Daftar.jsx setelah axios.post pertama berhasil
   const userId = location.state?.userId;
 
   const [siswaProfile, setSiswaProfile] = useState({
@@ -36,19 +35,44 @@ const DaftarSiswa = () => {
     setIsLoading(true);
 
     try {
-      // TEMBAK API UPDATE (Tahap 2)
-      const response = await axios.post('http://localhost:5000/api/auth/siswa/update', {
-        userId: userId, // Kirim ID agar Flask tahu siswa mana yang mau diupdate
-        ...siswaProfile
-      });
+      // 🔥 AMBIL TOKEN
+      const token = localStorage.getItem("token");
+
+      // 🔥 CEK TOKEN (BIAR TIDAK 401 SILENT)
+      if (!token) {
+        alert("Token tidak ditemukan. Silakan login ulang.");
+        navigate('/login');
+        return;
+      }
+
+      const response = await axios.post(
+        'http://localhost:5000/api/auth/siswa/update',
+        {
+          userId: userId,
+          ...siswaProfile
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
 
       if (response.data.status === "success" || response.status === 200) {
         alert("Profil Berhasil Dilengkapi!");
         navigate('/login'); 
       }
+
     } catch (err) {
       console.error("Update Error:", err.response?.data);
-      alert(err.response?.data?.message || "Gagal melengkapi profil.");
+
+      if (err.response?.status === 401) {
+        alert("Sesi login habis / token invalid. Login ulang.");
+        navigate('/login');
+      } else {
+        alert(err.response?.data?.message || "Gagal melengkapi profil.");
+      }
+
     } finally {
       setIsLoading(false);
     }

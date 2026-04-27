@@ -357,3 +357,34 @@
   cursor: pointer;
   font-weight: 600;
 }
+
+.scanner-fullscreen {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+}
+
+.scanner-box {
+  width: 100%;
+  max-width: 400px;
+}
+
+.barcode-overlay {
+  position: absolute;
+  top: 20px;
+  background: rgba(255,255,255,0.9);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.close-scanner {
+  position: absolute;
+  bottom: 20px;
+  padding: 10px 20px;
+}

@@ -1,18 +1,45 @@
-import React, { useState } from 'react'; // Tambahkan useState
+import React, { useState, useEffect } from 'react'; // ✅ tambah useEffect
+import axios from 'axios'; // ✅ tambah axios
 import {  
   FileCheck, 
   QrCode, 
   AlertCircle, 
   ArrowRight, 
   CheckCircle2,
-  CalendarCheck, // Tambahkan ikon untuk piket
+  CalendarCheck,
 } from 'lucide-react';
 import '../css/Dashboard-guru.css';
 
 const DashboardGuru = () => {
-  // --- LOGIKA FRONTEND ---
-  // Sama dengan Sidebar, ubah ke false untuk simulasi guru biasa
+
   const [isPiket] = useState(true);
+
+  // ✅ STATE UNTUK NAMA & GELAR
+  const [nama, setNama] = useState('');
+  const [gelar, setGelar] = useState('');
+
+  // ✅ AMBIL DATA DARI BACKEND
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem('token');
+
+        const res = await axios.get('http://localhost:5000/api/auth/me', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        setNama(res.data.data.nama_lengkap);
+        setGelar(res.data.data.gelar);
+
+      } catch (err) {
+        console.log("Gagal ambil data user:", err);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   return (
     <div className="dg-container">
@@ -24,16 +51,22 @@ const DashboardGuru = () => {
         </div>
         <div className="dg-user-badge">
           <div className="dg-user-text">
-            <span>Wali Kelas XII RPL 1</span>
-            <strong>Budi Santoso, S.Kom</strong>
+
+            {/* ✅ DINAMIS DARI DATABASE */}
+            <strong>
+              {nama ? `${nama} ${gelar || ''}` : 'Loading...'}
+            </strong>
+
           </div>
-          <div className="dg-avatar">G</div>
+          <div className="dg-avatar">
+          {nama ? nama.charAt(0).toUpperCase() : 'G'}
+          </div>
+
         </div>
       </header>
 
       {/* QUICK ACTIONS */}
       <div className="dg-action-grid">
-        {/* 1. VERIFIKASI SURAT (Tampil untuk semua Wali Kelas) */}
         <div className="dg-action-card">
           <div className="dg-icon-box orange"><FileCheck size={24} /></div>
           <div className="dg-action-content">
@@ -43,7 +76,6 @@ const DashboardGuru = () => {
           </div>
         </div>
 
-        {/* 2. PRESENSI HARIAN (HANYA MUNCUL JIKA GURU PIKET) */}
         {isPiket && (
           <div className="dg-action-card" style={{ borderLeft: '5px solid #3b82f6' }}>
             <div className="dg-icon-box blue" style={{ backgroundColor: '#eff6ff', color: '#3b82f6' }}>
@@ -52,12 +84,13 @@ const DashboardGuru = () => {
             <div className="dg-action-content">
               <h3>Petugas Piket</h3>
               <p>Generate QR Presensi Gerbang</p>
-              <button className="dg-btn" style={{ backgroundColor: '#3b82f6' }}>Buka QR Harian <ArrowRight size={16} /></button>
+              <button className="dg-btn" style={{ backgroundColor: '#3b82f6' }}>
+                Buka QR Harian <ArrowRight size={16} />
+              </button>
             </div>
           </div>
         )}
 
-        {/* 3. PRESENSI MAPEL (Semua Guru) */}
         <div className="dg-action-card">
           <div className="dg-icon-box teal"><QrCode size={24} /></div>
           <div className="dg-action-content">
@@ -69,7 +102,6 @@ const DashboardGuru = () => {
       </div>
 
       <div className="dg-main-layout">
-        {/* TABEL MONITORING SISWA */}
         <div className="dg-table-section">
           <div className="dg-section-title">
             <h2>Monitoring Kehadiran Kelas (XII RPL 1)</h2>
@@ -108,7 +140,6 @@ const DashboardGuru = () => {
           </div>
         </div>
 
-        {/* NOTIFIKASI SYSTEM */}
         <div className="dg-side-section">
           <div className="dg-section-title">
             <h2>Pemberitahuan</h2>

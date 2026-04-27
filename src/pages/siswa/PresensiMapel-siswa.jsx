@@ -1,58 +1,112 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Html5Qrcode } from "html5-qrcode";
-import { Camera, CheckCircle2, Loader2, AlertCircle } from 'lucide-react';
+import axios from 'axios';
+import { Camera, CheckCircle2, Loader2 } from 'lucide-react';
 import '../css/PresensiMapel-siswa.css';
 
 const PresensiMapelSiswa = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [scanResult, setScanResult] = useState(null);
-  const [isProcessing, setIsProcessing] = useState(false); // Simulasi loading backend
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [showScanner, setShowScanner] = useState(false);
 
-  // Fungsi Utama Jalankan Kamera
+  const scannerRef = useRef(null);
+
+  // ==============================
+  // START SCAN
+  // ==============================
   const handleStartScan = async () => {
-  console.log("Mencoba memulai...");
-  setIsScanning(true);
+    console.log("Mencoba memulai...");
 
-  try {
-    // 1. Cek apakah browser mendukung getUserMedia
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      alert("Browser kamu tidak mendukung akses kamera. Gunakan Chrome/Edge terbaru.");
-      return;
-    }
+    setShowScanner(true);
+    setIsScanning(true);
 
-    // 2. Minta izin kamera secara manual (pancingan)
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-    console.log("Izin diberikan, menghentikan stream sementara untuk library...");
-    stream.getTracks().forEach(track => track.stop()); // Matikan pancingan
-
-    // 3. Jalankan library scanner
-    const html5QrCode = new Html5Qrcode("reader");
-    await html5QrCode.start(
-      { facingMode: "user" }, 
-      { fps: 10, qrbox: 250 },
-      (text) => {
-        html5QrCode.stop();
-        handleSuccessFlow(text);
+    try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert("Browser tidak support kamera");
+        return;
       }
-    );
-  } catch (err) {
-    console.error("Error Lengkap:", err);
-    // Jika muncul alert ini, berarti masalahnya ada di izin browser atau hardware
-    alert("Kamera Error: " + err.name + " - " + err.message);
-    setIsScanning(false);
-  }
-};
 
-  // Simulasi alur pengiriman ke Backend
-  const handleSuccessFlow = (data) => {
-    setIsScanning(false);
-    setIsProcessing(true); // Mulai loading "palsu"
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      stream.getTracks().forEach(track => track.stop());
 
-    // Simulasi delay jaringan selama 1.5 detik
-    setTimeout(() => {
+      const html5QrCode = new Html5Qrcode("reader");
+      scannerRef.current = html5QrCode;
+
+      await html5QrCode.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: 250 },
+        (text) => {
+          html5QrCode.stop();
+          handleSuccessFlow(text);
+        }
+      );
+
+    } catch (err) {
+      console.error("Error:", err);
+      alert("Kamera Error: " + err.message);
+      setIsScanning(false);
+      setShowScanner(false);
+    }
+  };
+
+  // ==============================
+  // STOP SCANNER
+  // ==============================
+  const stopScanner = async () => {
+    try {
+      if (scannerRef.current) {
+        await scannerRef.current.stop();
+        scannerRef.current.clear();
+      }
+    } catch (err) {
+      console.log("Scanner sudah berhenti");
+    }
+  };
+
+  // ==============================
+  // SUCCESS FLOW
+  // ==============================
+  const handleSuccessFlow = async (data) => {
+    setIsScanning(false);
+    setShowScanner(false);
+    setIsProcessing(true);
+
+    try {
+      const token = localStorage.getItem('token');
+
+      let presensi_id = null;
+      if (data.includes('|')) {
+        const parts = data.split('|');
+        if (parts.length >= 5) {
+          presensi_id = parts[0];
+        }
+      }
+
+      const response = await axios.post(
+        'http://localhost:5000/api/presensi/mapel',
+        {
+          qr_code: data,
+          presensi_id: presensi_id
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      setScanResult({
+        message: response.data.message,
+        raw: data
+      });
+
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.message || "Gagal presensi");
+    } finally {
       setIsProcessing(false);
-      setScanResult(data);
-    }, 1500);
+    }
   };
 
   return (
@@ -66,49 +120,94 @@ const PresensiMapelSiswa = () => {
 
       <div className="pm-siswa-content">
         <div className="pm-main-card">
-          <div className="pm-scan-area">
-            {/* Elemen Reader tetap ada untuk wadah kamera */}
-            <div id="reader" style={{ 
-              width: '100%', 
-              minHeight: isScanning ? '300px' : '0px',
-              display: isScanning ? 'block' : 'none' 
-            }}></div>
-            
-            {/* Tampilan Loading saat simulasi kirim data */}
-            {isProcessing && (
-              <div className="pm-status-display">
-                <Loader2 className="animate-spin" size={48} color="#1a746b" />
-                <p>Memverifikasi data kehadiran...</p>
-              </div>
-            )}
 
-            {/* Tampilan Sukses */}
-            {scanResult && (
-              <div className="pm-status-display success-fade-in">
-                <CheckCircle2 size={60} color="#22c55e" />
-                <h3>Absensi Berhasil!</h3>
-                <p>Kode Mapel: <strong>{scanResult}</strong></p>
-                <button className="pm-btn-outline" onClick={() => setScanResult(null)}>
-                  Scan Lagi
-                </button>
-              </div>
-            )}
+          {/* ============================== */}
+          {/* SCANNER */}
+          {/* ============================== */}
+          {showScanner && (
+            <div className="scanner-fullscreen">
 
-            {/* Tampilan Awal (Placeholder) */}
-            {!isScanning && !scanResult && !isProcessing && (
-              <div className="pm-camera-placeholder">
-                <Camera size={48} />
-                <p>Kamera siap digunakan</p>
-              </div>
-            )}
-          </div>
+              <div id="reader" className="scanner-box"></div>
 
-          {/* Tombol Aktifkan Kamera hanya muncul jika tidak sedang scan/processing */}
+              <div className="barcode-overlay">
+                <p>Arahkan kamera ke QR guru</p>
+              </div>
+
+              <button
+                className="close-scanner"
+                onClick={() => {
+                  stopScanner();
+                  setShowScanner(false);
+                  setIsScanning(false);
+                }}
+              >
+                Tutup
+              </button>
+
+            </div>
+          )}
+
+          {/* ============================== */}
+          {/* LOADING */}
+          {/* ============================== */}
+          {isProcessing && (
+            <div className="pm-status-display">
+              <Loader2 className="animate-spin" size={48} />
+              <p>Memverifikasi data kehadiran...</p>
+            </div>
+          )}
+
+          {/* ============================== */}
+          {/* SUCCESS */}
+          {/* ============================== */}
+          {scanResult && (
+            <div className="pm-status-display success-fade-in">
+              <CheckCircle2 size={60} color="#22c55e" />
+              <h3>Absensi Berhasil!</h3>
+
+              <p><strong>{scanResult.message}</strong></p>
+
+              {scanResult.raw && scanResult.raw.includes('|') && (() => {
+                const parts = scanResult.raw.split('|');
+
+                return (
+                  <>
+                    <p>Mapel: {parts[1]}</p>
+                    <p>Kelas: {parts[2]}</p>
+                    <p>Jam: {parts[3]}</p>
+                    <p>Waktu: {new Date().toLocaleTimeString()}</p>
+                  </>
+                );
+              })()}
+
+              <button
+                className="pm-btn-outline"
+                onClick={() => setScanResult(null)}
+              >
+                Scan Lagi
+              </button>
+            </div>
+          )}
+
+          {/* ============================== */}
+          {/* PLACEHOLDER */}
+          {/* ============================== */}
+          {!isScanning && !scanResult && !isProcessing && (
+            <div className="pm-camera-placeholder">
+              <Camera size={48} />
+              <p>Kamera siap digunakan</p>
+            </div>
+          )}
+
+          {/* ============================== */}
+          {/* BUTTON */}
+          {/* ============================== */}
           {!isScanning && !scanResult && !isProcessing && (
             <button className="pm-btn-primary" onClick={handleStartScan}>
               <Camera size={20} /> AKTIFKAN KAMERA
             </button>
           )}
+
         </div>
       </div>
     </div>

@@ -28,27 +28,41 @@ const DaftarGuru = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    setIsLoading(true);
+  setIsLoading(true);
 
-    try {
-      const response = await axios.post('http://localhost:5000/api/guru', {
+  try {
+    const token = localStorage.getItem('token');
+
+    console.log("USER ID:", userId); // 🔥 debug
+
+    const response = await axios.post(
+      'http://localhost:5000/api/auth/guru/update',
+      {
         ...formData,
-        user_id: userId
-      });
-
-      if (response.status === 201) {
-        alert("Profil guru berhasil disimpan!");
-        navigate('/login');
+        user_id: userId // ✅ FIX
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       }
+    );
 
-    } catch (err) {
-      alert(err.response?.data?.message || "Gagal menyimpan data guru");
-    } finally {
-      setIsLoading(false);
+    if (response.status === 200) {
+      alert("Profil guru berhasil disimpan!");
+      navigate('/login');
     }
-  };
+
+  } catch (err) {
+    console.log(err); // 🔥 biar keliatan error asli
+    alert(err.response?.data?.message || "Gagal menyimpan data guru");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <div className="daftar-container">

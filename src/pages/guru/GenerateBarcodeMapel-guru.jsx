@@ -27,21 +27,35 @@ const GenerateQRMapel = () => {
     getMapel();
   }, []);
 
-  // 🔹 GENERATE QR
-  const handleGenerate = () => {
+  // 🔥 GENERATE QR (SUDAH TERHUBUNG BACKEND)
+  const handleGenerate = async () => {
     if (!mapel || !kelas || !jam) {
       alert('Semua field harus diisi!');
       return;
     }
 
-    const data = {
-      mapel,
-      kelas,
-      jam,
-      waktu: new Date().toISOString()
-    };
+    try {
+      const res = await axios.post(
+        'http://localhost:5000/api/presensi/generate',
+        {
+          mapel,
+          kelas,
+          jam
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}` // 🔐 JWT LOGIN
+          }
+        }
+      );
 
-    setQrData(JSON.stringify(data));
+      // 🔥 QR dari backend
+      setQrData(res.data.qr_code);
+
+    } catch (error) {
+      console.error('Error generate QR:', error);
+      alert('Gagal generate QR');
+    }
   };
 
   return (
@@ -90,6 +104,7 @@ const GenerateQRMapel = () => {
         <div className="form-mapel" style={{ textAlign: 'center' }}>
           <h3>QR Presensi Aktif</h3>
 
+          {/* 🔥 QR DARI BACKEND */}
           <QRCodeCanvas value={qrData} size={220} />
 
           <div style={{ marginTop: '15px', textAlign: 'left' }}>
